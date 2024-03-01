@@ -26,9 +26,6 @@ import logging
 ###
 # From hpclib
 ###
-import linuxutils
-from   urdecorators import trap
-from   urlogger import URLogger
 
 ###
 # imports and global objects that are a part of this project
@@ -47,7 +44,6 @@ __email__ = 'gflanagin@richmond.edu'
 __status__ = 'in progress'
 __license__ = 'MIT'
 
-@trap
 def parse_time(t:str) -> datetime.time:
     """
     Take the string t, and see if it is a datetime.time object.
@@ -59,7 +55,6 @@ def parse_time(t:str) -> datetime.time:
         sys.exit(os.EX_DATAERR)
     
 
-@trap
 def chargetime_main(myargs:argparse.Namespace) -> int:
     """
     Tedious ...
@@ -86,7 +81,7 @@ if __name__ == '__main__':
     five_minutes_ago = (now_datetime - timedelta(minutes=5)).time()
 
     parser = argparse.ArgumentParser(prog="chargetime", 
-        description="Chargetime calculates when your car will be changed.")
+        description="Chargetime calculates when your car will be charged.")
 
     parser.add_argument('-b', '--battery-capacity', type=float,
         default=77.5,
@@ -106,7 +101,7 @@ if __name__ == '__main__':
     
     parser.add_argument('-t', '--target-charge', type=int, 
         default=80,
-        choices=range(10, 105, 5),
+        choices=range(10, 105, 10),
         help="Target charge level in percent. Defaults to 80.")
 
 
