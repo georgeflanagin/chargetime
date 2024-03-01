@@ -57,7 +57,7 @@ def parse_time(t:str) -> datetime.time:
 
 def chargetime_main(myargs:argparse.Namespace) -> int:
     """
-    Tedious ...
+    Tedium ...
     """
 
     kwh_per_min = myargs.kw / 60
@@ -106,6 +106,18 @@ if __name__ == '__main__':
 
 
     myargs = parser.parse_args()
+
+    if myargs.target_charge < myargs.current_charge:
+        print(f"Your car does not need charging.")
+        sys.exit(os.EX_OK)
+
+    if 0 > myargs.battery_capacity:
+        print(f"You need a new battery.")
+        sys.exit(os.EX_DATAERR)
+
+    if 0 > myargs.kw:
+        print(f"Your charger is woefully underpowered.")
+        sys.exit(os.EX_DATAERR)
 
     try:
         sys.exit(globals()[f"{os.path.basename(__file__)[:-3]}_main"](myargs))
